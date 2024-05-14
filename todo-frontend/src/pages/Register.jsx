@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { registerAPI } from '../services/APIs'
 // import { registerAPI } from '../Services/allAPI';
 
 function Register() {
@@ -16,18 +17,21 @@ function Register() {
         if (!username || !email || !password) {
             alert("Please fill the form completely...")
         } else {
-            // // api call
-            // const response = await registerAPI(userData)
-            // // console.log(response);
-            // if (response.status === 200) {
-            //     alert(`${response.data.username} has registered successfully...`)
-            //     setUserData({
-            //         username: '',
-            //         email: '',
-            //         password: ''
-            //     })
-            //     navigate('/')
-            // }
+            // api call
+            const response = await registerAPI(userData)
+            // console.log(response);
+            if (response.status === 200) {
+                alert(`${response.data.username} has registered successfully...`)
+                setUserData({
+                    username: '',
+                    email: '',
+                    password: ''
+                })
+                navigate('/')
+            }else {
+                console.log(response);
+                alert(response.response.data)
+            }
         }
     }
 

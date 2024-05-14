@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { loginAPI } from '../services/APIs'
 // import { loginAPI } from '../Services/allAPI'
 
 function Login() {
@@ -17,17 +18,17 @@ function Login() {
             alert("Please fill the form completely...")
         } else {
             // api call
-            // const response = await loginAPI(userData)
-            // if (response.status === 200) {
-            //     sessionStorage.setItem("existingUser", JSON.stringify(response.data.existingUser))
-            //     sessionStorage.setItem("token", response.data.token)
-            //     setUserData({
-            //         email: "", password: ""
-            //     })
-            //     navigate('/home')
-            // } else {
-            //     alert(response.response.data)
-            // }
+            const response = await loginAPI(userData)
+            if (response.status === 200) {
+                sessionStorage.setItem("existingUser", JSON.stringify(response.data.existingUser))
+                sessionStorage.setItem("token", response.data.token)
+                setUserData({
+                    email: "", password: ""
+                })
+                navigate('/dashboard')
+            } else {
+                alert(response.response.data)
+            }
         }
     }
 
