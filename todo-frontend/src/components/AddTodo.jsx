@@ -14,7 +14,10 @@ const AddTodo = () => {
     const [todoData, setTodoData] = useState({ todo: "" })
     const [token, setToken] = useState("")
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+        setTodoData({ todo: "" })
+    }
     const handleShow = () => setShow(true);
 
     useEffect(() => {

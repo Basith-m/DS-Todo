@@ -5,11 +5,16 @@ import AddTodo from '../components/AddTodo';
 import { deleteTodoAPI, getTodoAPI } from '../services/APIs';
 import { todoChangeResponse } from '../redux/todoSlice/todoSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { MdLogout } from "react-icons/md";
+import { setIsAuthorized } from '../redux/authSlice/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
 
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const todoResponse = useSelector(state => state.todoReducer)
+    const isAuthorized = useSelector(state => state.authReducer)
 
     const [todos, setTodos] = useState([])
 
@@ -47,13 +52,36 @@ const Dashboard = () => {
         }
     }
 
+    const handleLogout = () => {
+        // remove all existing user details
+        sessionStorage.removeItem("existingUser")
+        sessionStorage.removeItem("token")
+        dispatch(setIsAuthorized(false));
+        console.log(isAuthorized);
+        navigate('/login', { replace: true })
+    }
+
     useEffect(() => {
         getTodos()
     }, [todoResponse])
 
+    useEffect(() => {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            dispatch(setIsAuthorized(true));
+        } else {
+            dispatch(setIsAuthorized(false));
+            navigate('/login', { replace: true });
+        }
+    }, [dispatch, isAuthorized]);
+
     return (
         <div className='main-container d-flex flex-column align-items-center gap-3'>
             <h1>Todo App</h1>
+            <button className='logout-btn' onClick={handleLogout}>
+                <MdLogout />
+                <span>Logout</span>
+            </button>
             <div className="todo-container rounded shadow">
                 <div className='d-flex align-items-center justify-content-between'>
                     <h2 className="todo_title">What’s On Your List?</h2>

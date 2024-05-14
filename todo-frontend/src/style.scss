@@ -8,6 +8,19 @@
     font-size: 2rem;
   }
 
+  .logout-btn {
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: rgb(255, 111, 0);
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
   .todo-container {
     background-color: #ffff;
     padding: 1rem 1.5rem;

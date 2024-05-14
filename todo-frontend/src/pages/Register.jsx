@@ -44,7 +44,7 @@ function Register() {
                     <input className='form-control rounded' type="email" placeholder='Email' onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
                     <input className='form-control rounded' type="password" placeholder='Password' onChange={(e) => setUserData({ ...userData, password: e.target.value })} />
                     <div>
-                        <p>Already have an account - <Link to={'/'}>Sign In</Link></p>
+                        <p>Already have an account - <Link to={'/login'}>Sign In</Link></p>
                     </div>
                     <button className='btn btn-info rounded' type='submit'>Register</button>
                 </form>
